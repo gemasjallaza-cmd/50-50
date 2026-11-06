@@ -1,22 +1,23 @@
+
 {
   "name": "Gastos diarios Alizee",
-  "id": "alizee-gastos-v7",
+  "id": "/50-50/",
   "short_name": "Alizee",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/50-50/",
+  "scope": "/50-50/",
   "display": "standalone",
   "background_color": "#fdf8fa",
   "theme_color": "#e8c2ce",
   "lang": "es",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/50-50/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "/50-50/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
