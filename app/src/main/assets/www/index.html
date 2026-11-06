@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e8c2ce">
+<title>Gastos diarios Alizee</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--ink:#000;--muted:#4d3b42;--green:#e8b9c7;--mint:#fbf0f3;--paper:#fdf8fa;--line:#f0e2e7;--white:#fff;--red:#a64e59}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:600 15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(135deg,#e8c2ce 0%,#f0d1da 58%,#f7e3e9 100%);color:#000;padding:22px 18px 20px;border-radius:0 0 26px 26px;box-shadow:0 8px 24px #d9aebd26}
+header h1{margin:0;font-size:24px;font-weight:850;letter-spacing:-.35px}header p{margin:5px 0 0;color:#2b1d23;font-size:13px}
+.daybar{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:12px}
+.daybar button{width:42px;height:42px;border:0;border-radius:50%;background:#ffffffa8;color:#2b1d23;font-size:28px;line-height:1;box-shadow:0 3px 12px #b98c9c22}
+.daylabel{display:flex;flex-direction:column;align-items:center;gap:2px}
+.daylabel strong{font-size:23px;font-weight:900;letter-spacing:.1px;color:#000}.daylabel span{font-size:13px;color:#2b1d23;background:#ffffffa0;padding:3px 10px;border-radius:99px}
+main{max-width:760px;margin:auto;padding:16px 14px 40px}
+nav{display:flex;gap:8px;overflow:auto;margin:0 0 15px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:99px;padding:10px 14px;color:var(--ink)}
+nav button.active{background:#e8c2ce;color:#000;border-color:transparent;box-shadow:0 4px 12px #d9aebd30}
+.card{background:white;border:1px solid var(--line);border-radius:19px;padding:16px;margin:12px 0;box-shadow:0 5px 20px #765b7a0d}
+h2{font-size:18px;font-weight:850;margin:0 0 13px}h3{font-size:16px;font-weight:850;margin:0 0 8px}
+label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin:11px 0 5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #e3c3cd;border-radius:11px;background:#fff;color:var(--ink);font:inherit}
+textarea{min-height:70px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button.primary{background:linear-gradient(135deg,#e8c2ce,#f0d1da);color:#000;border:0;border-radius:12px;padding:12px 16px;font-weight:850;width:100%;margin-top:13px}
+button.secondary{background:#fbf0f3;color:#2b1d23;border:1px solid #f0e2e7;border-radius:10px;padding:10px 12px;font-weight:800}
+button.danger{background:#fff0f0;color:var(--red);border:1px solid #f0d6d6;border-radius:10px;padding:8px 10px}
+.small{font-size:12px;color:var(--muted)}.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:linear-gradient(135deg,#fbf0f3,#fdf6f8);padding:13px;border-radius:14px}.stat span{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:20px;font-weight:850}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}
+.itemtop{display:flex;justify-content:space-between;gap:12px}.item strong{font-size:15px;font-weight:850}.item .meta{font-size:12px;color:var(--muted);margin-top:3px}
+.thumb{width:58px;height:58px;object-fit:cover;border-radius:9px;margin-top:8px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.report{border:1px dashed #d9aebd;border-radius:13px;padding:14px;background:#fff}
+.report h3{text-align:center;font-size:18px}.report .date{text-align:center;color:var(--muted);font-size:12px}
+.reportline{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line)}
+.reporttotal{font-weight:900;font-size:18px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:18px}
+@media(max-width:430px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media print{body{background:white}header,nav,.noprint,footer{display:none!important}main{padding:0}.card{border:0;box-shadow:none;padding:0}.report{border:0}.report h3{margin-top:0}}
+.reportline b,.reportline strong{font-weight:850}
+.daylabel span{font-weight:750}
+nav button{font-weight:750}
+input,select,textarea{font-weight:600}
+::placeholder{font-weight:500}
+body{padding-bottom:env(safe-area-inset-bottom)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Gastos diarios Alizee</h1>
+  <p>Registro de gastos, aportes y comprobantes</p>
+  <div class="daybar">
+    <button type="button" id="prevDay" aria-label="Día anterior">‹</button>
+    <div class="daylabel"><strong id="dayHeading">Hoy</strong><span id="dayDate"></span></div>
+    <button type="button" id="nextDay" aria-label="Día siguiente">›</button>
+  </div>
+</header>
+<main>
+<nav class="noprint">
+<button class="active" data-tab="daily">Hoy</button><button data-tab="history">Historial</button><button data-tab="balance">Balance</button><button data-tab="backup">Respaldo</button>
+</nav>
+<section id="daily">
+<div class="card noprint">
+<h2>Registrar gasto</h2>
+<label for="category">Categoría</label><select id="category"><option>Alimentación</option><option>Educación</option><option>Salud</option><option>Transporte</option><option>Vestimenta</option><option>Higiene y cuidado</option><option>Recreación</option><option>Otros</option></select>
+<label for="description">Descripción</label><input id="description" placeholder="Ej. Almuerzo, útiles escolares...">
+<div class="grid"><div><label for="amount">Precio (Bs)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="0.00"></div><div><label for="expensePhoto">Foto del comprobante (opcional)</label><input id="expensePhoto" type="file" accept="image/*"></div></div>
+<button class="primary" id="addExpense">Agregar gasto</button>
+</div>
+<div class="card noprint">
+<h2>Registrar aporte recibido del papá</h2>
+<div><label for="paymentAmount">Importe recibido (Bs)</label><input id="paymentAmount" type="number" min="0.01" step="0.01" placeholder="0.00"></div>
+<label for="paymentMethod">Medio de pago / referencia</label><input id="paymentMethod" placeholder="Ej. Transferencia, efectivo...">
+<label for="paymentPhoto">Foto del comprobante (opcional)</label><input id="paymentPhoto" type="file" accept="image/*">
+<button class="primary" id="addPayment">Guardar aporte recibido</button>
+<p class="small">El aporte se registra solo cuando efectivamente lo recibes. Puedes adjuntar la captura o foto del comprobante.</p>
+</div>
+<div class="card">
+<h2>Resumen del día</h2>
+<p class="small noprint">Los movimientos se registran automáticamente en el día seleccionado arriba.</p>
+<div id="dailyReport" class="report"></div>
+<div class="actions noprint"><button class="secondary" id="shareReport">Compartir resumen</button><button class="secondary" id="printReport">Imprimir / Guardar PDF</button></div>
+</div>
+</section>
+<section id="history" class="hidden">
+<div class="card"><h2>Historial de movimientos</h2><label for="historyDate">Filtrar por fecha</label><input id="historyDate" type="date"><div id="historyList"></div></div>
+</section>
+<section id="balance" class="hidden">
+<div class="card"><h2>Balance general 50/50</h2><p class="small">Se calcula con todos los gastos registrados y todos los aportes efectivamente recibidos.</p><div class="stats" id="balanceStats"></div><div id="balanceDetails"></div></div>
+</section>
+<section id="backup" class="hidden">
+<div class="card"><h2>Copias de seguridad</h2><p>Los datos y las fotos se guardan en este dispositivo. Exporta una copia periódicamente para no perderlos si cambias de teléfono o borras los datos del navegador.</p>
+<p class="small" id="usage"></p><button class="primary" id="exportBackup">Descargar copia de seguridad</button>
+<label for="importFile">Restaurar una copia anterior</label><input id="importFile" type="file" accept="application/json">
+<p class="small">La restauración reemplaza los registros actuales por los de la copia seleccionada.</p>
+</div>
+<div class="card"><h2>Privacidad</h2><p class="small">Esta versión guarda los registros localmente en el navegador de este dispositivo. No envía tus datos ni fotografías a ningún servidor.</p></div>
+</section>
+<footer>Gastos diarios Alizee · Registro privado en este dispositivo · v7</footer>
+</main>
+<script src="app.js"></script>
+</body></html>
