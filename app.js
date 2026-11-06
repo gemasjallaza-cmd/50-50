@@ -1,4 +1,3 @@
-
 const $=id=>document.getElementById(id);
 const DB='alizee-gastos-v1';
 let data={expenses:[],payments:[]};
