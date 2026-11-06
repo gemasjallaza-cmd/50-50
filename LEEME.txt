@@ -1,0 +1,16 @@
+GASTOS DIARIOS ALIZEE — versión inicial
+
+Incluye:
+- Registro diario de gastos por categoría, descripción, fecha e importe.
+- Foto opcional del comprobante de cada gasto.
+- Registro de aportes realmente recibidos del papá, con medio de pago y foto.
+- Resumen diario imprimible/guardable como PDF y compartible.
+- Balance acumulado: 50% del gasto total menos aportes registrados.
+- Copia de seguridad y restauración en archivo JSON. Las fotos también se incluyen.
+- Datos guardados localmente en el navegador del dispositivo.
+
+IMPORTANTE:
+1. Esta app guarda datos en el navegador de este dispositivo. No borres los datos del sitio/navegador sin exportar primero una copia.
+2. Para instalarla como PWA en Android debe publicarse en un hosting HTTPS (por ejemplo GitHub Pages). Luego abre el enlace en Chrome y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.
+3. El archivo ZIP contiene la app lista para publicar, no está publicada todavía.
+4. El cálculo es una herramienta de registro, no determina por sí solo obligaciones legales ni valida comprobantes.
